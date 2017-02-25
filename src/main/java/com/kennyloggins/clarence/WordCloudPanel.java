@@ -44,6 +44,7 @@ public class WordCloudPanel extends JPanel {
     //String attributes.
     private double defaultFontSize;
     private double fontScaleFactor;
+    private int minimumFontSize;
 
     //List of placed string objects.
     private List<String2D> strPositions;
@@ -79,6 +80,7 @@ public class WordCloudPanel extends JPanel {
         fontScaleFactor = 0.8;
         screenArea = 0;
         enclosedArea = 0;
+        minimumFontSize = 7;
         
         strPositions = new ArrayList<>();
         screenBoundary = null;
@@ -135,6 +137,14 @@ public class WordCloudPanel extends JPanel {
     }
     
     /**
+     * Sets the minimum font size.
+     * @param minimumFontSize - The minimum font size.
+     */
+    public void setMinimumFontSize(int minimumFontSize) {
+        this.minimumFontSize = minimumFontSize;
+    }
+    
+    /**
      * @return The maximum iterations this word cloud instance will run before terminating.
      */
     public int getMaxIterations() {
@@ -182,6 +192,13 @@ public class WordCloudPanel extends JPanel {
     public int getCurrentWordCount() {
         return strPositions.size();
     } 
+    
+    /**
+     * @return The minimum font size possible in the word cloud.
+     */
+    public int getMinimumFontSize() {
+        return minimumFontSize;
+    }
     
     /**
      * Loads the word counts that will be used to generate the word cloud. Higher values means larger key text.
@@ -316,7 +333,6 @@ public class WordCloudPanel extends JPanel {
         
         //If no outliningShape is provided, use a rectangle the size of the screen.
         if(transformedOutliningShape == null) {
-            transformedOutliningShape = new Rectangle2D.Double(-width / 2, -height / 2, width, height);
             int resolution = 50;
             
             double dX = width / resolution;
@@ -329,12 +345,14 @@ public class WordCloudPanel extends JPanel {
             	outliningPoints.add(new Point(width / 2, (int)(i * dY - height / 2)));
             }
             
+            enclosedArea = width * height;
         }
-        else 
-        	outliningPoints = getPointsFromShape(transformedOutliningShape);
+        else {
+            //Compute area
+            enclosedArea = getEnclosedArea(transformedOutliningShape);
+            outliningPoints = getPointsFromShape(transformedOutliningShape);
+        }
         
-        //Compute area
-        enclosedArea = getEnclosedArea(transformedOutliningShape);
     }
     
     /**
@@ -418,7 +436,7 @@ public class WordCloudPanel extends JPanel {
     private Font createFont(Word w) {
         //Base size of the word on frequency
         int fontSize = Math.max((int)(defaultFontSize * Math.sqrt(enclosedArea / screenArea) * 
-                Math.pow((double)w.count / (double)highestCount, fontScaleFactor)), 7);
+                Math.pow((double)w.count / (double)highestCount, fontScaleFactor)), minimumFontSize);
         //Select font name
         int index = (int)(Math.random() * fonts.size());
         String name = fonts.get(index);
@@ -543,7 +561,7 @@ public class WordCloudPanel extends JPanel {
                 screenBoundary.getWidth(), screenBoundary.getHeight());
         if(!bounds.contains(s2d.getBounds()))
             return false;
-        if(!transformedOutliningShape.contains(s2d.getBounds()))
+        if(transformedOutliningShape != null && !transformedOutliningShape.contains(s2d.getBounds()))
             return false;
         return true;
     }
@@ -658,7 +676,7 @@ public class WordCloudPanel extends JPanel {
     
     /**
      * Paints the elements to the screen.
-     * @param - g the graphics context. 
+     * @param g - the graphics context. 
      */
     @Override
     protected void paintComponent(Graphics g) {

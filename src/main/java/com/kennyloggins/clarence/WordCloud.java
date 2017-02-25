@@ -35,7 +35,9 @@ import javax.swing.table.DefaultTableModel;
 public class WordCloud extends JFrame {
     private static final long serialVersionUID = 8462848341514542290L;
     private final JFileChooser fc;
-    private Map<String, Integer> wordCounts; 
+    private Map<String, Integer> wordCounts;
+    private Set<String> blacklist;
+    private Set<String> whitelist;
     private Color outlineTargetColor;
     private Task task;
     private Thread thread;
@@ -53,12 +55,14 @@ public class WordCloud extends JFrame {
         int maxWords = wordCloudMain.getMaxWords();
         double fontSize = wordCloudMain.getFontSize();
         double fontScaleFactor = wordCloudMain.getFontScaleFactor();
+        int minimumFontSize = wordCloudMain.getMinimumFontSize();
         
         MaxWordsTF.setText(Integer.toString(maxWords));
         IterationsPerWordTF.setText(Integer.toString(maxIterationsPerWord));
         IterationsTF.setText(Integer.toString(maxIterations));
         FontSizeTF.setText(Integer.toString((int)fontSize));
         FontScaleSlider.setValue((int) (200 * (fontScaleFactor - 0.5)));
+        minimumFontSizeTF.setText(Integer.toString(minimumFontSize));
         
         //Build the default font selection list
         String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment()
@@ -66,12 +70,12 @@ public class WordCloud extends JFrame {
         String[] unselectedFonts = { "Bookshelf Symbol 7", "Marlett", "MS Outlook", 
             "MS Reference Specialty", "MT Extra", "OpenSymbol", "Segoe MDL2 Assets", 
             "Symbol", "Webdings", "Wingdings", "Wingdings 2", "Wingdings 3"};
-        Set<String> blacklist = new HashSet<>();
-        blacklist.addAll(Arrays.asList(unselectedFonts));
-        int[] defaultIndices = new int[fonts.length - blacklist.size()];
+        Set<String> fontBlacklist = new HashSet<>();
+        fontBlacklist.addAll(Arrays.asList(unselectedFonts));
+        int[] defaultIndices = new int[fonts.length - fontBlacklist.size()];
         int j = 0;
         for(int i = 0; i < fonts.length; i++) {
-            if(!blacklist.contains(fonts[i]))
+            if(!fontBlacklist.contains(fonts[i]))
                 defaultIndices[j++] = i;
         }
         fontList.setListData(fonts);
@@ -145,22 +149,16 @@ public class WordCloud extends JFrame {
         jProgressBar1 = new javax.swing.JProgressBar();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         wordCloudSettingsPanel = new javax.swing.JPanel();
-        MaxWordsTF = new com.kennyloggins.clarence.NumericTextField();
-        IterationsTF = new com.kennyloggins.clarence.NumericTextField();
-        IterationsPerWordTF = new com.kennyloggins.clarence.NumericTextField();
-        FontSizeTF = new com.kennyloggins.clarence.NumericTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         LoadWordCountButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         wordCountTable = new javax.swing.JTable();
         GenerateButton = new javax.swing.JButton();
-        FontScaleSlider = new javax.swing.JSlider();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        fontList = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        blacklistList = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        whitelistList = new javax.swing.JList<>();
+        loadBlacklistButton = new javax.swing.JButton();
+        loadWhitelistButton = new javax.swing.JButton();
         outlineSettingsPanel = new javax.swing.JPanel();
         loadOutlineButton = new javax.swing.JButton();
         ColorPickerPanel = new javax.swing.JPanel();
@@ -177,6 +175,20 @@ public class WordCloud extends JFrame {
         HorizontalOffsetLabel = new javax.swing.JLabel();
         ToleranceLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        fontList = new javax.swing.JList<>();
+        FontScaleSlider = new javax.swing.JSlider();
+        jLabel4 = new javax.swing.JLabel();
+        FontSizeTF = new com.kennyloggins.clarence.NumericTextField();
+        jLabel5 = new javax.swing.JLabel();
+        IterationsPerWordTF = new com.kennyloggins.clarence.NumericTextField();
+        jLabel2 = new javax.swing.JLabel();
+        IterationsTF = new com.kennyloggins.clarence.NumericTextField();
+        jLabel1 = new javax.swing.JLabel();
+        MaxWordsTF = new com.kennyloggins.clarence.NumericTextField();
+        jLabel3 = new javax.swing.JLabel();
+        minimumFontSizeTF = new com.kennyloggins.clarence.NumericTextField();
+        minimumFontSizeLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 749));
@@ -191,7 +203,7 @@ public class WordCloud extends JFrame {
         wordCloudMain.setLayout(wordCloudMainLayout);
         wordCloudMainLayout.setHorizontalGroup(
             wordCloudMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 849, Short.MAX_VALUE)
+            .addGap(0, 674, Short.MAX_VALUE)
         );
         wordCloudMainLayout.setVerticalGroup(
             wordCloudMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,34 +218,6 @@ public class WordCloud extends JFrame {
 
         wordCloudSettingsPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         wordCloudSettingsPanel.setName(""); // NOI18N
-
-        MaxWordsTF.setText("0");
-        MaxWordsTF.setMinimumSize(new java.awt.Dimension(25, 25));
-
-        IterationsTF.setText("0");
-        IterationsTF.setMinimumSize(new java.awt.Dimension(25, 25));
-
-        IterationsPerWordTF.setText("0");
-        IterationsPerWordTF.setMinimumSize(new java.awt.Dimension(25, 25));
-
-        FontSizeTF.setText("0");
-        FontSizeTF.setMinimumSize(new java.awt.Dimension(25, 25));
-        FontSizeTF.setPreferredSize(new java.awt.Dimension(35, 24));
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Scale Factor");
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Iterations per Word");
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Max Words");
-
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Font Size");
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Iterations");
 
         LoadWordCountButton.setText("Load");
         LoadWordCountButton.setMargin(new java.awt.Insets(5, 5, 5, 5));
@@ -269,24 +253,25 @@ public class WordCloud extends JFrame {
             }
         });
 
-        FontScaleSlider.setAutoscrolls(true);
-        FontScaleSlider.setMinimumSize(new java.awt.Dimension(25, 25));
-        FontScaleSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                FontScaleSliderStateChanged(evt);
+        blacklistList.setEnabled(false);
+        jScrollPane3.setViewportView(blacklistList);
+
+        whitelistList.setEnabled(false);
+        jScrollPane4.setViewportView(whitelistList);
+
+        loadBlacklistButton.setText("Blacklist");
+        loadBlacklistButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadBlacklistButtonActionPerformed(evt);
             }
         });
 
-        jScrollPane1.setToolTipText("");
-
-        fontList.setFont(new java.awt.Font("Dialog", 1, 9)); // NOI18N
-        fontList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        loadWhitelistButton.setText("Whitelist");
+        loadWhitelistButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadWhitelistButtonActionPerformed(evt);
+            }
         });
-        fontList.setRequestFocusEnabled(false);
-        jScrollPane1.setViewportView(fontList);
 
         javax.swing.GroupLayout wordCloudSettingsPanelLayout = new javax.swing.GroupLayout(wordCloudSettingsPanel);
         wordCloudSettingsPanel.setLayout(wordCloudSettingsPanelLayout);
@@ -295,83 +280,47 @@ public class WordCloud extends JFrame {
             .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
+                                .addComponent(loadBlacklistButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(loadWhitelistButton)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
-                        .addComponent(IterationsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
-                        .addComponent(MaxWordsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
-                            .addComponent(FontScaleSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
-                            .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
-                                    .addComponent(LoadWordCountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(GenerateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(1, 1, 1))
-                        .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
-                            .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(FontSizeTF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(IterationsPerWordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
-                                    .addGap(5, 5, 5)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                        .addComponent(LoadWordCountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(GenerateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        wordCloudSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {GenerateButton, LoadWordCountButton});
-
-        wordCloudSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3});
-
-        wordCloudSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
+        wordCloudSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {GenerateButton, LoadWordCountButton, loadBlacklistButton, loadWhitelistButton});
 
         wordCloudSettingsPanelLayout.setVerticalGroup(
             wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FontScaleSlider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FontSizeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(IterationsPerWordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(IterationsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MaxWordsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(loadBlacklistButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loadWhitelistButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LoadWordCountButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(GenerateButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        wordCloudSettingsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {GenerateButton, LoadWordCountButton});
+        wordCloudSettingsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {GenerateButton, LoadWordCountButton, loadBlacklistButton, loadWhitelistButton});
 
         jTabbedPane1.addTab("Content", wordCloudSettingsPanel);
 
@@ -545,16 +494,134 @@ public class WordCloud extends JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jScrollPane1.setToolTipText("");
+
+        fontList.setFont(new java.awt.Font("Dialog", 1, 9)); // NOI18N
+        fontList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        fontList.setRequestFocusEnabled(false);
+        jScrollPane1.setViewportView(fontList);
+
+        FontScaleSlider.setAutoscrolls(true);
+        FontScaleSlider.setMinimumSize(new java.awt.Dimension(25, 25));
+        FontScaleSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                FontScaleSliderStateChanged(evt);
+            }
+        });
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Scale Factor");
+
+        FontSizeTF.setText("0");
+        FontSizeTF.setMinimumSize(new java.awt.Dimension(25, 25));
+        FontSizeTF.setPreferredSize(new java.awt.Dimension(35, 24));
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setText("Font Size");
+
+        IterationsPerWordTF.setText("0");
+        IterationsPerWordTF.setMinimumSize(new java.awt.Dimension(25, 25));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("Iterations per Word");
+
+        IterationsTF.setText("0");
+        IterationsTF.setMinimumSize(new java.awt.Dimension(25, 25));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("Iterations");
+
+        MaxWordsTF.setText("0");
+        MaxWordsTF.setMinimumSize(new java.awt.Dimension(25, 25));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setText("Max Words");
+
+        minimumFontSizeTF.setText("0");
+
+        minimumFontSizeLabel.setText("Min Font Size");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 209, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(IterationsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(FontScaleSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(FontSizeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(IterationsPerWordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(5, 5, 5)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(minimumFontSizeTF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(MaxWordsTF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(minimumFontSizeLabel)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, minimumFontSizeLabel});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 435, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(FontScaleSlider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FontSizeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(IterationsPerWordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(IterationsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MaxWordsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(minimumFontSizeTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minimumFontSizeLabel))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel3, minimumFontSizeLabel});
 
         jTabbedPane1.addTab("Image", jPanel1);
 
@@ -564,9 +631,9 @@ public class WordCloud extends JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(wordCloudMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -578,10 +645,10 @@ public class WordCloud extends JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(wordCloudMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 4, Short.MAX_VALUE)))
+                        .addGap(0, 121, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -637,6 +704,7 @@ public class WordCloud extends JFrame {
         wordCloudMain.setMaxIterationsPerWord(Integer.parseInt(IterationsPerWordTF.getText()));
         wordCloudMain.setFontSize(Integer.parseInt(FontSizeTF.getText()));
         wordCloudMain.setFonts(fontList.getSelectedValuesList());
+        wordCloudMain.setMinimumFontSize(Integer.parseInt(minimumFontSizeTF.getText()));
 
         if(wordCounts != null) {
             wordCloudMain.setWordCounts(wordCounts);
@@ -645,6 +713,7 @@ public class WordCloud extends JFrame {
             task.execute();
 
             thread = new Thread(new Runnable() { 
+                @Override
                 public void run() {
                     wordCloudMain.generateWordCloud();
                     GenerateButton.setEnabled(true);
@@ -661,7 +730,7 @@ public class WordCloud extends JFrame {
         fc.setFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
         if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                wordCounts = CParser.getWordCounts(fc.getSelectedFile(), 4, null, null);
+                wordCounts = CParser.getWordCounts(fc.getSelectedFile(), 4, blacklist, whitelist);
                 updateTable();
             } catch (IOException | ParseException ex) {
                 String message = ex.getClass().getName() + "\n" + ex.getMessage();
@@ -691,11 +760,55 @@ public class WordCloud extends JFrame {
     }//GEN-LAST:event_VerticalScaleTFActionPerformed
 
     private void jProgressBar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jProgressBar1PropertyChange
-        if("progress" == evt.getPropertyName()) {
+        if(evt.getPropertyName().equals("progress")) {
             int progress = (Integer)evt.getNewValue();
             jProgressBar1.setValue(progress);
         }
     }//GEN-LAST:event_jProgressBar1PropertyChange
+
+    private void loadBlacklistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBlacklistButtonActionPerformed
+        fc.setFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
+        if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                blacklist = CParser.fileLinesToUppercasedStringSet(fc.getSelectedFile().getAbsoluteFile());
+                String[] listData = new String[blacklist.size()];
+                int i = 0;
+                for(String s : blacklist)
+                    listData[i++] = s;
+                    
+                blacklistList.setListData(listData);
+            } catch (IOException ex) {
+                String message = ex.getClass().getName() + "\n" + ex.getMessage();
+                JOptionPane.showMessageDialog(jScrollPane2,
+                    message,
+                    "An Error Occurred.",
+                    JOptionPane.INFORMATION_MESSAGE);
+                Logger.getLogger(WordCloud.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_loadBlacklistButtonActionPerformed
+
+    private void loadWhitelistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadWhitelistButtonActionPerformed
+        fc.setFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
+        if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                whitelist = CParser.fileLinesToUppercasedStringSet(fc.getSelectedFile().getAbsoluteFile());
+                String[] listData = new String[whitelist.size()];
+                int i = 0;
+                for(String s : whitelist)
+                    listData[i++] = s;
+                
+                whitelistList.setListData(listData);
+            } catch (IOException ex) {
+                String message = ex.getClass().getName() + "\n" + ex.getMessage();
+                JOptionPane.showMessageDialog(jScrollPane2,
+                    message,
+                    "An Error Occurred.",
+                    JOptionPane.INFORMATION_MESSAGE);
+                Logger.getLogger(WordCloud.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_loadWhitelistButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -756,6 +869,7 @@ public class WordCloud extends JFrame {
     private com.kennyloggins.clarence.NumericTextField VerticalOffsetTF;
     private javax.swing.JLabel VerticalScaleLabel;
     private com.kennyloggins.clarence.NumericTextField VerticalScaleTF;
+    private javax.swing.JList<String> blacklistList;
     private javax.swing.JList<String> fontList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -766,9 +880,16 @@ public class WordCloud extends JFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JButton loadBlacklistButton;
     private javax.swing.JButton loadOutlineButton;
+    private javax.swing.JButton loadWhitelistButton;
+    private javax.swing.JLabel minimumFontSizeLabel;
+    private com.kennyloggins.clarence.NumericTextField minimumFontSizeTF;
     private javax.swing.JPanel outlineSettingsPanel;
+    private javax.swing.JList<String> whitelistList;
     private com.kennyloggins.clarence.WordCloudPanel wordCloudMain;
     private javax.swing.JPanel wordCloudSettingsPanel;
     private javax.swing.JTable wordCountTable;
