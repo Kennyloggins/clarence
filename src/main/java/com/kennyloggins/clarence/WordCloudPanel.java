@@ -5,15 +5,8 @@
  */
 package com.kennyloggins.clarence;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
+import java.awt.*;
+import java.awt.font.*;
 import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -32,8 +25,8 @@ import java.util.Collections;
  * @author Bill
  */
 public class WordCloudPanel extends JPanel {
-	private static final long serialVersionUID = -3009020538577863914L;
-	//Component attributes.
+    private static final long serialVersionUID = -3009020538577863914L;
+    //Component attributes.
     private int width, height;
     private int highestCount;
     private int maxIterations;
@@ -58,6 +51,7 @@ public class WordCloudPanel extends JPanel {
     private double enclosedArea;
     private AffineTransform outlineTransform;
     private List<Point> outliningPoints;
+    private double stringPadding;
     
     private List<String> fonts;
 
@@ -88,6 +82,7 @@ public class WordCloudPanel extends JPanel {
         outliningShape = null;
         outlineTransform = new AffineTransform();
         outliningPoints = new ArrayList<>();
+        stringPadding = 1.0;
                 
         fonts = new ArrayList<>();
         fonts.addAll(Arrays.asList(GraphicsEnvironment.getLocalGraphicsEnvironment()
@@ -142,6 +137,14 @@ public class WordCloudPanel extends JPanel {
      */
     public void setMinimumFontSize(int minimumFontSize) {
         this.minimumFontSize = minimumFontSize;
+    }
+    
+    /**
+     * Sets the padding between strings. This is the minimum distance allowed between strings.
+     * @param padding The minimum distance allowed between strings.
+     */
+    public void setStringPadding(double padding) {
+        this.stringPadding = padding;
     }
     
     /**
@@ -201,6 +204,13 @@ public class WordCloudPanel extends JPanel {
     }
     
     /**
+     * @return The padding between strings, i.e. the minimum distance allowed between two strings.
+     */
+    public double getStringPadding() {
+        return stringPadding;
+    }
+    
+    /**
      * Loads the word counts that will be used to generate the word cloud. Higher values means larger key text.
      * @param wordCounts The map containing the word of counts used to generate the word cloud.
      */
@@ -209,9 +219,9 @@ public class WordCloudPanel extends JPanel {
             this.wordCounts.clear();
         
         for(Map.Entry<String, Integer> entry : wordCounts.entrySet()) {
-                String key = entry.getKey();
-                Integer value = entry.getValue();
-                this.wordCounts.add(new Word(key, value));
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            this.wordCounts.add(new Word(key, value));
         }
         //Sort by count
         Collections.sort(this.wordCounts, (Word lhs, Word rhs) -> 
@@ -529,11 +539,11 @@ public class WordCloudPanel extends JPanel {
      * @return True if there are collisions, false otherwise.
      */
     private boolean intersectsOtherStrings(String2D s2d) {
-        if(cache != null && s2d.intersects(cache)) 
+        if(cache != null && s2d.intersects(cache, stringPadding)) 
             return true;
 
         for(String2D target : partitionRoot.potentialCollisions(s2d)) {
-            if(s2d.intersects(target)) {
+            if(s2d.intersects(target, stringPadding)) {
                 cache = target;
                 return true;
             }
@@ -702,15 +712,11 @@ public class WordCloudPanel extends JPanel {
         }
     }
     
-    public void saveImage(File filePath) {
+    public void saveImage(File filePath) throws IOException {
         BufferedImage img = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics g = img.getGraphics();
         this.paint(g);
-        try {
-            ImageIO.write(img, "png", filePath);
-        } catch (IOException ex) {
-            
-        }
+        ImageIO.write(img, "png", filePath);
     }
 }
 

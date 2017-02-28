@@ -34,9 +34,24 @@ public class CollidableShape {
         root = new HitBox(outline);
     }
     
-    public boolean intersects(CollidableShape cs) {
-        return root.intersects(cs.root, cs.x - this.x, cs.y - this.y);
+     /**
+     * Checks if target shape intersects with this shape.
+     * @param target - the target shape to check for intersection.
+     * @return True if the shapes intersect, false otherwise.
+     */
+    public boolean intersects(CollidableShape target) {
+        return this.intersects(target, 0);
     }
+    
+    /**
+     * Checks if target shape intersects with this shape.
+     * @param target - the target shape to check for intersection.
+     * @param padding - the distance between the objects that is considered "intersecting."
+     * @return True if the shapes intersect, false otherwise.
+     */
+    public boolean intersects(CollidableShape target, double padding) {
+        return root.intersects(target.root, target.x - this.x, target.y - this.y, padding);
+    }  
     
     public double getX() {
         return x;

@@ -35,8 +35,8 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jProgressBar1" pref="209" max="32767" attributes="0"/>
-                  <Component id="jTabbedPane1" pref="0" max="32767" attributes="0"/>
+                  <Component id="wordCloudProgressBar" max="32767" attributes="0"/>
+                  <Component id="settingsTabbedPane" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="wordCloudMain" max="32767" attributes="0"/>
@@ -51,10 +51,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="wordCloudMain" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="jTabbedPane1" min="-2" pref="346" max="-2" attributes="0"/>
+                      <Component id="wordCloudProgressBar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="121" max="32767" attributes="0"/>
+                      <Component id="settingsTabbedPane" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -68,7 +67,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="674" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="1053" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -78,22 +77,17 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+    <Component class="javax.swing.JProgressBar" name="wordCloudProgressBar">
       <Events>
-        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jProgressBar1PropertyChange"/>
+        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="wordCloudProgressBarPropertyChange"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+    <Container class="javax.swing.JTabbedPane" name="settingsTabbedPane">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="wordCloudSettingsPanel">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
-              </Border>
-            </Property>
             <Property name="name" type="java.lang.String" value="" noResource="true"/>
           </Properties>
           <Constraints>
@@ -110,28 +104,35 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jScrollPane3" min="-2" pref="94" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane4" min="-2" pref="94" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="loadWordCountButton" linkSize="21" min="-2" pref="94" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="generateButton" linkSize="21" min="-2" pref="94" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="blacklistScrollPane" min="-2" pref="94" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="whitelistScrollPane" min="-2" pref="94" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="wordCountScrollPanel" alignment="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       <Component id="loadBlacklistButton" linkSize="21" min="-2" pref="87" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                                       <Component id="loadWhitelistButton" linkSize="21" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="jScrollPane2" alignment="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="LoadWordCountButton" linkSize="21" min="-2" pref="94" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="GenerateButton" linkSize="21" min="-2" pref="94" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -139,9 +140,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane3" pref="99" max="32767" attributes="0"/>
-                          <Component id="jScrollPane4" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="blacklistScrollPane" pref="85" max="32767" attributes="0"/>
+                          <Component id="whitelistScrollPane" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -149,19 +150,19 @@
                           <Component id="loadWhitelistButton" linkSize="33" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" pref="125" max="-2" attributes="0"/>
+                      <Component id="wordCountScrollPanel" min="-2" pref="125" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="LoadWordCountButton" linkSize="33" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="GenerateButton" linkSize="33" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="loadWordCountButton" linkSize="33" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="generateButton" linkSize="33" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="395" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="LoadWordCountButton">
+            <Component class="javax.swing.JButton" name="loadWordCountButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Load"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -172,10 +173,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LoadWordCountButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadWordCountButtonActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+            <Container class="javax.swing.JScrollPane" name="wordCountScrollPanel">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -219,15 +220,15 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="GenerateButton">
+            <Component class="javax.swing.JButton" name="generateButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Generate"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GenerateButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="generateButtonActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+            <Container class="javax.swing.JScrollPane" name="blacklistScrollPane">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -247,7 +248,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+            <Container class="javax.swing.JScrollPane" name="whitelistScrollPane">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -286,13 +287,6 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="outlineSettingsPanel">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
-              </Border>
-            </Property>
-          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Outline">
@@ -309,40 +303,40 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="ToleranceSlider" linkSize="25" min="-2" pref="49" max="-2" attributes="0"/>
-                                  <Component id="HorizontalOffsetTF" linkSize="25" min="-2" max="-2" attributes="0"/>
+                                  <Component id="toleranceSlider" linkSize="25" min="-2" pref="49" max="-2" attributes="0"/>
+                                  <Component id="horizontalOffsetTF" linkSize="25" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="HorizontalOffsetLabel" linkSize="24" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ToleranceLabel" linkSize="24" min="-2" max="-2" attributes="0"/>
+                                  <Component id="horizontalOffsetLabel" linkSize="24" min="-2" max="-2" attributes="0"/>
+                                  <Component id="toleranceLabel" linkSize="24" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                              <Component id="ColorPickerPanel" linkSize="25" min="-2" max="-2" attributes="0"/>
+                              <Component id="colorPickerPanel" linkSize="25" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="ColorPickerLabel" linkSize="24" min="-2" max="-2" attributes="0"/>
+                              <Component id="colorPickerLabel" linkSize="24" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="VerticalOffsetTF" linkSize="25" min="-2" max="-2" attributes="0"/>
-                                      <Component id="HorizontalScaleTF" linkSize="25" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="verticalOffsetTF" linkSize="25" min="-2" max="-2" attributes="0"/>
+                                      <Component id="horizontalScaleTF" linkSize="25" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="VerticalScaleTF" linkSize="25" alignment="1" min="-2" pref="61" max="-2" attributes="0"/>
+                                  <Component id="verticalScaleTF" linkSize="25" alignment="1" min="-2" pref="61" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="VerticalOffsetLabel" linkSize="24" min="-2" max="-2" attributes="0"/>
-                                  <Component id="VerticalScaleLabel" linkSize="24" min="-2" pref="88" max="-2" attributes="0"/>
-                                  <Component id="HorizontalScaleLabel" linkSize="24" min="-2" max="-2" attributes="0"/>
+                                  <Component id="verticalOffsetLabel" linkSize="24" min="-2" max="-2" attributes="0"/>
+                                  <Component id="verticalScaleLabel" linkSize="24" min="-2" pref="88" max="-2" attributes="0"/>
+                                  <Component id="horizontalScaleLabel" linkSize="24" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="loadOutlineButton" linkSize="27" min="-2" pref="70" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="SaveButton" linkSize="27" min="-2" pref="94" max="-2" attributes="0"/>
+                              <Component id="saveButton" linkSize="27" min="-2" pref="94" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -354,38 +348,38 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="ColorPickerPanel" linkSize="23" min="-2" max="-2" attributes="0"/>
-                          <Component id="ColorPickerLabel" linkSize="23" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="colorPickerPanel" linkSize="23" min="-2" max="-2" attributes="0"/>
+                          <Component id="colorPickerLabel" linkSize="23" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="ToleranceSlider" linkSize="23" min="-2" max="-2" attributes="0"/>
-                          <Component id="ToleranceLabel" linkSize="23" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="toleranceSlider" linkSize="23" min="-2" max="-2" attributes="0"/>
+                          <Component id="toleranceLabel" linkSize="23" min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="HorizontalOffsetTF" linkSize="23" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="HorizontalOffsetLabel" linkSize="23" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="horizontalOffsetTF" linkSize="23" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="horizontalOffsetLabel" linkSize="23" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="HorizontalScaleTF" linkSize="23" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="HorizontalScaleLabel" linkSize="23" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="horizontalScaleTF" linkSize="23" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="horizontalScaleLabel" linkSize="23" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="VerticalOffsetTF" linkSize="23" alignment="3" max="32767" attributes="0"/>
-                          <Component id="VerticalOffsetLabel" linkSize="23" alignment="3" max="32767" attributes="0"/>
+                          <Component id="verticalOffsetTF" linkSize="23" alignment="3" max="32767" attributes="0"/>
+                          <Component id="verticalOffsetLabel" linkSize="23" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="VerticalScaleTF" linkSize="23" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="VerticalScaleLabel" linkSize="23" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="verticalScaleTF" linkSize="23" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="verticalScaleLabel" linkSize="23" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="loadOutlineButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="SaveButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -401,7 +395,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadOutlineButtonActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JPanel" name="ColorPickerPanel">
+            <Container class="javax.swing.JPanel" name="colorPickerPanel">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -410,7 +404,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ColorPickerPanelMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="colorPickerPanelMouseClicked"/>
               </Events>
 
               <Layout>
@@ -426,7 +420,7 @@
                 </DimensionLayout>
               </Layout>
             </Container>
-            <Component class="javax.swing.JSlider" name="ToleranceSlider">
+            <Component class="javax.swing.JSlider" name="toleranceSlider">
               <Properties>
                 <Property name="maximum" type="int" value="255"/>
                 <Property name="value" type="int" value="0"/>
@@ -435,15 +429,15 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="SaveButton">
+            <Component class="javax.swing.JButton" name="saveButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Save"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SaveButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="com.kennyloggins.clarence.NumericTextField" name="VerticalScaleTF">
+            <Component class="com.kennyloggins.clarence.NumericTextField" name="verticalScaleTF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="1"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -454,10 +448,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VerticalScaleTFActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verticalScaleTFActionPerformed"/>
               </Events>
             </Component>
-            <Component class="com.kennyloggins.clarence.NumericTextField" name="VerticalOffsetTF">
+            <Component class="com.kennyloggins.clarence.NumericTextField" name="verticalOffsetTF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -468,10 +462,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VerticalOffsetTFActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verticalOffsetTFActionPerformed"/>
               </Events>
             </Component>
-            <Component class="com.kennyloggins.clarence.NumericTextField" name="HorizontalScaleTF">
+            <Component class="com.kennyloggins.clarence.NumericTextField" name="horizontalScaleTF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="1"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -482,10 +476,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HorizontalScaleTFActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="horizontalScaleTFActionPerformed"/>
               </Events>
             </Component>
-            <Component class="com.kennyloggins.clarence.NumericTextField" name="HorizontalOffsetTF">
+            <Component class="com.kennyloggins.clarence.NumericTextField" name="horizontalOffsetTF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -496,49 +490,42 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HorizontalOffsetTFActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="horizontalOffsetTFActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="ColorPickerLabel">
+            <Component class="javax.swing.JLabel" name="colorPickerLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Color Picker"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="HorizontalScaleLabel">
+            <Component class="javax.swing.JLabel" name="horizontalScaleLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Horizontal Scale"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="VerticalOffsetLabel">
+            <Component class="javax.swing.JLabel" name="verticalOffsetLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vertical Offset"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="VerticalScaleLabel">
+            <Component class="javax.swing.JLabel" name="verticalScaleLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vertical Scale"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="HorizontalOffsetLabel">
+            <Component class="javax.swing.JLabel" name="horizontalOffsetLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Horizontal Offset"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="ToleranceLabel">
+            <Component class="javax.swing.JLabel" name="toleranceLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Tolerance"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel1">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
-              </Border>
-            </Property>
-          </Properties>
+        <Container class="javax.swing.JPanel" name="imageSettingsPanel">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Image">
@@ -553,53 +540,62 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="IterationsTF" min="-2" pref="61" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              <Component id="jLabel1" linkSize="28" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="jScrollPane1" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="FontScaleSlider" min="-2" pref="60" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel4" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="FontSizeTF" min="-2" pref="61" max="-2" attributes="0"/>
-                                      <Component id="IterationsPerWordTF" min="-2" pref="61" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                          <Component id="jLabel2" linkSize="28" min="-2" pref="128" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel5" min="-2" pref="127" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="minimumFontSizeTF" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="MaxWordsTF" alignment="0" pref="61" max="32767" attributes="0"/>
-                              </Group>
+                          <Component id="fontListScrollPane" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="iterationsTF" linkSize="37" min="-2" pref="61" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" linkSize="28" max="32767" attributes="0"/>
+                                      <Component id="iterationsLabel" linkSize="28" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="fontScaleSlider" min="-2" pref="60" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="scaleFactorLabel" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="fontSizeTF" linkSize="37" min="-2" pref="61" max="-2" attributes="0"/>
+                                              <Component id="iterationsPerWordTF" linkSize="37" min="-2" pref="61" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                                  <Component id="iterationsPerWordLabel" linkSize="28" min="-2" pref="128" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="fontSizeLabel" linkSize="28" min="-2" pref="127" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="minimumFontSizeLabel" linkSize="28" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="stringPaddingTF" linkSize="37" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="minimumFontSizeTF" linkSize="37" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="maxWordsTF" linkSize="37" alignment="0" pref="61" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                                              <Component id="maxWordsLabel" linkSize="28" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="stringPaddingLabel" linkSize="28" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="minimumFontSizeLabel" linkSize="28" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -607,44 +603,49 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="101" max="-2" attributes="0"/>
+                      <Component id="fontListScrollPane" min="-2" pref="101" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="FontScaleSlider" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="fontScaleSlider" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="scaleFactorLabel" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="FontSizeTF" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="fontSizeTF" linkSize="38" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="fontSizeLabel" linkSize="36" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="IterationsPerWordTF" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="iterationsPerWordTF" linkSize="38" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="iterationsPerWordLabel" linkSize="36" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="IterationsTF" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="iterationsTF" linkSize="38" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="iterationsLabel" linkSize="36" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="MaxWordsTF" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="jLabel3" linkSize="36" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="maxWordsTF" linkSize="38" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="maxWordsLabel" linkSize="36" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="minimumFontSizeTF" min="-2" max="-2" attributes="0"/>
+                          <Component id="minimumFontSizeTF" linkSize="38" min="-2" max="-2" attributes="0"/>
                           <Component id="minimumFontSizeLabel" linkSize="36" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="stringPaddingTF" linkSize="38" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="stringPaddingLabel" linkSize="36" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="373" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+            <Container class="javax.swing.JScrollPane" name="fontListScrollPane">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
@@ -676,24 +677,21 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JSlider" name="FontScaleSlider">
+            <Component class="javax.swing.JSlider" name="fontScaleSlider">
               <Properties>
                 <Property name="autoscrolls" type="boolean" value="true"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[25, 25]"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="FontScaleSliderStateChanged"/>
-              </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
+            <Component class="javax.swing.JLabel" name="scaleFactorLabel">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="text" type="java.lang.String" value="Scale Factor"/>
               </Properties>
             </Component>
-            <Component class="com.kennyloggins.clarence.NumericTextField" name="FontSizeTF">
+            <Component class="com.kennyloggins.clarence.NumericTextField" name="fontSizeTF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -704,13 +702,13 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel5">
+            <Component class="javax.swing.JLabel" name="fontSizeLabel">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="text" type="java.lang.String" value="Font Size"/>
               </Properties>
             </Component>
-            <Component class="com.kennyloggins.clarence.NumericTextField" name="IterationsPerWordTF">
+            <Component class="com.kennyloggins.clarence.NumericTextField" name="iterationsPerWordTF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -718,13 +716,13 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="iterationsPerWordLabel">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="text" type="java.lang.String" value="Iterations per Word"/>
               </Properties>
             </Component>
-            <Component class="com.kennyloggins.clarence.NumericTextField" name="IterationsTF">
+            <Component class="com.kennyloggins.clarence.NumericTextField" name="iterationsTF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -732,13 +730,13 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="iterationsLabel">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="text" type="java.lang.String" value="Iterations"/>
               </Properties>
             </Component>
-            <Component class="com.kennyloggins.clarence.NumericTextField" name="MaxWordsTF">
+            <Component class="com.kennyloggins.clarence.NumericTextField" name="maxWordsTF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -746,7 +744,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="maxWordsLabel">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="2"/>
                 <Property name="text" type="java.lang.String" value="Max Words"/>
@@ -760,6 +758,16 @@
             <Component class="javax.swing.JLabel" name="minimumFontSizeLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Min Font Size"/>
+              </Properties>
+            </Component>
+            <Component class="com.kennyloggins.clarence.NumericTextField" name="stringPaddingTF">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="stringPaddingLabel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="String Padding"/>
               </Properties>
             </Component>
           </SubComponents>

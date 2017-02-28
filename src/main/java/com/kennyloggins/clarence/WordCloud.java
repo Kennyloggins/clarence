@@ -47,7 +47,7 @@ public class WordCloud extends JFrame {
         
         fc = new JFileChooser();
         outlineTargetColor = Color.black;
-        ColorPickerPanel.setBackground(outlineTargetColor);
+        colorPickerPanel.setBackground(outlineTargetColor);
                 
         //Get defaults from main word cloud
         int maxIterations = wordCloudMain.getMaxIterations();
@@ -56,13 +56,15 @@ public class WordCloud extends JFrame {
         double fontSize = wordCloudMain.getFontSize();
         double fontScaleFactor = wordCloudMain.getFontScaleFactor();
         int minimumFontSize = wordCloudMain.getMinimumFontSize();
+        int stringPadding = (int)wordCloudMain.getStringPadding();
         
-        MaxWordsTF.setText(Integer.toString(maxWords));
-        IterationsPerWordTF.setText(Integer.toString(maxIterationsPerWord));
-        IterationsTF.setText(Integer.toString(maxIterations));
-        FontSizeTF.setText(Integer.toString((int)fontSize));
-        FontScaleSlider.setValue((int) (200 * (fontScaleFactor - 0.5)));
+        maxWordsTF.setText(Integer.toString(maxWords));
+        iterationsPerWordTF.setText(Integer.toString(maxIterationsPerWord));
+        iterationsTF.setText(Integer.toString(maxIterations));
+        fontSizeTF.setText(Integer.toString((int)fontSize));
+        fontScaleSlider.setValue((int) (200 * (fontScaleFactor - 0.5)));
         minimumFontSizeTF.setText(Integer.toString(minimumFontSize));
+        stringPaddingTF.setText(Integer.toString(stringPadding));
         
         //Build the default font selection list
         String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment()
@@ -98,7 +100,7 @@ public class WordCloud extends JFrame {
                 progress = 100 * Math.max(iterationCount / wordCloudMain.getMaxIterations(), 
                         wordCount / wordCloudMain.getMaxWords());
                 setProgress(Math.min((int)progress, 100));
-                jProgressBar1.setValue((int)progress);
+                wordCloudProgressBar.setValue((int)progress);
             }
             return null;
         }
@@ -127,10 +129,10 @@ public class WordCloud extends JFrame {
     
     private void drawPreviewImage() {
         wordCloudMain.initialize();
-        double scaleX = Double.parseDouble(HorizontalScaleTF.getText());
-        double scaleY = Double.parseDouble(VerticalScaleTF.getText());
-        double translateX = Double.parseDouble(HorizontalOffsetTF.getText());
-        double translateY = Double.parseDouble(VerticalOffsetTF.getText());
+        double scaleX = Double.parseDouble(horizontalScaleTF.getText());
+        double scaleY = Double.parseDouble(verticalScaleTF.getText());
+        double translateX = Double.parseDouble(horizontalOffsetTF.getText());
+        double translateY = Double.parseDouble(verticalOffsetTF.getText());
         
         wordCloudMain.setOutlineTransform(scaleX, scaleY, translateX, translateY);
         wordCloudMain.repaint();
@@ -146,49 +148,51 @@ public class WordCloud extends JFrame {
     private void initComponents() {
 
         wordCloudMain = new com.kennyloggins.clarence.WordCloudPanel();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        wordCloudProgressBar = new javax.swing.JProgressBar();
+        settingsTabbedPane = new javax.swing.JTabbedPane();
         wordCloudSettingsPanel = new javax.swing.JPanel();
-        LoadWordCountButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        loadWordCountButton = new javax.swing.JButton();
+        wordCountScrollPanel = new javax.swing.JScrollPane();
         wordCountTable = new javax.swing.JTable();
-        GenerateButton = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        generateButton = new javax.swing.JButton();
+        blacklistScrollPane = new javax.swing.JScrollPane();
         blacklistList = new javax.swing.JList<>();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        whitelistScrollPane = new javax.swing.JScrollPane();
         whitelistList = new javax.swing.JList<>();
         loadBlacklistButton = new javax.swing.JButton();
         loadWhitelistButton = new javax.swing.JButton();
         outlineSettingsPanel = new javax.swing.JPanel();
         loadOutlineButton = new javax.swing.JButton();
-        ColorPickerPanel = new javax.swing.JPanel();
-        ToleranceSlider = new javax.swing.JSlider();
-        SaveButton = new javax.swing.JButton();
-        VerticalScaleTF = new com.kennyloggins.clarence.NumericTextField();
-        VerticalOffsetTF = new com.kennyloggins.clarence.NumericTextField();
-        HorizontalScaleTF = new com.kennyloggins.clarence.NumericTextField();
-        HorizontalOffsetTF = new com.kennyloggins.clarence.NumericTextField();
-        ColorPickerLabel = new javax.swing.JLabel();
-        HorizontalScaleLabel = new javax.swing.JLabel();
-        VerticalOffsetLabel = new javax.swing.JLabel();
-        VerticalScaleLabel = new javax.swing.JLabel();
-        HorizontalOffsetLabel = new javax.swing.JLabel();
-        ToleranceLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        colorPickerPanel = new javax.swing.JPanel();
+        toleranceSlider = new javax.swing.JSlider();
+        saveButton = new javax.swing.JButton();
+        verticalScaleTF = new com.kennyloggins.clarence.NumericTextField();
+        verticalOffsetTF = new com.kennyloggins.clarence.NumericTextField();
+        horizontalScaleTF = new com.kennyloggins.clarence.NumericTextField();
+        horizontalOffsetTF = new com.kennyloggins.clarence.NumericTextField();
+        colorPickerLabel = new javax.swing.JLabel();
+        horizontalScaleLabel = new javax.swing.JLabel();
+        verticalOffsetLabel = new javax.swing.JLabel();
+        verticalScaleLabel = new javax.swing.JLabel();
+        horizontalOffsetLabel = new javax.swing.JLabel();
+        toleranceLabel = new javax.swing.JLabel();
+        imageSettingsPanel = new javax.swing.JPanel();
+        fontListScrollPane = new javax.swing.JScrollPane();
         fontList = new javax.swing.JList<>();
-        FontScaleSlider = new javax.swing.JSlider();
-        jLabel4 = new javax.swing.JLabel();
-        FontSizeTF = new com.kennyloggins.clarence.NumericTextField();
-        jLabel5 = new javax.swing.JLabel();
-        IterationsPerWordTF = new com.kennyloggins.clarence.NumericTextField();
-        jLabel2 = new javax.swing.JLabel();
-        IterationsTF = new com.kennyloggins.clarence.NumericTextField();
-        jLabel1 = new javax.swing.JLabel();
-        MaxWordsTF = new com.kennyloggins.clarence.NumericTextField();
-        jLabel3 = new javax.swing.JLabel();
+        fontScaleSlider = new javax.swing.JSlider();
+        scaleFactorLabel = new javax.swing.JLabel();
+        fontSizeTF = new com.kennyloggins.clarence.NumericTextField();
+        fontSizeLabel = new javax.swing.JLabel();
+        iterationsPerWordTF = new com.kennyloggins.clarence.NumericTextField();
+        iterationsPerWordLabel = new javax.swing.JLabel();
+        iterationsTF = new com.kennyloggins.clarence.NumericTextField();
+        iterationsLabel = new javax.swing.JLabel();
+        maxWordsTF = new com.kennyloggins.clarence.NumericTextField();
+        maxWordsLabel = new javax.swing.JLabel();
         minimumFontSizeTF = new com.kennyloggins.clarence.NumericTextField();
         minimumFontSizeLabel = new javax.swing.JLabel();
+        stringPaddingTF = new com.kennyloggins.clarence.NumericTextField();
+        stringPaddingLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 749));
@@ -203,28 +207,27 @@ public class WordCloud extends JFrame {
         wordCloudMain.setLayout(wordCloudMainLayout);
         wordCloudMainLayout.setHorizontalGroup(
             wordCloudMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 1053, Short.MAX_VALUE)
         );
         wordCloudMainLayout.setVerticalGroup(
             wordCloudMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jProgressBar1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+        wordCloudProgressBar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jProgressBar1PropertyChange(evt);
+                wordCloudProgressBarPropertyChange(evt);
             }
         });
 
-        wordCloudSettingsPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         wordCloudSettingsPanel.setName(""); // NOI18N
 
-        LoadWordCountButton.setText("Load");
-        LoadWordCountButton.setMargin(new java.awt.Insets(5, 5, 5, 5));
-        LoadWordCountButton.setPreferredSize(new java.awt.Dimension(50, 32));
-        LoadWordCountButton.addActionListener(new java.awt.event.ActionListener() {
+        loadWordCountButton.setText("Load");
+        loadWordCountButton.setMargin(new java.awt.Insets(5, 5, 5, 5));
+        loadWordCountButton.setPreferredSize(new java.awt.Dimension(50, 32));
+        loadWordCountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoadWordCountButtonActionPerformed(evt);
+                loadWordCountButtonActionPerformed(evt);
             }
         });
 
@@ -244,20 +247,20 @@ public class WordCloud extends JFrame {
         wordCountTable.setFocusCycleRoot(true);
         wordCountTable.setInheritsPopupMenu(true);
         wordCountTable.setRequestFocusEnabled(false);
-        jScrollPane2.setViewportView(wordCountTable);
+        wordCountScrollPanel.setViewportView(wordCountTable);
 
-        GenerateButton.setText("Generate");
-        GenerateButton.addActionListener(new java.awt.event.ActionListener() {
+        generateButton.setText("Generate");
+        generateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GenerateButtonActionPerformed(evt);
+                generateButtonActionPerformed(evt);
             }
         });
 
         blacklistList.setEnabled(false);
-        jScrollPane3.setViewportView(blacklistList);
+        blacklistScrollPane.setViewportView(blacklistList);
 
         whitelistList.setEnabled(false);
-        jScrollPane4.setViewportView(whitelistList);
+        whitelistScrollPane.setViewportView(whitelistList);
 
         loadBlacklistButton.setText("Blacklist");
         loadBlacklistButton.addActionListener(new java.awt.event.ActionListener() {
@@ -280,51 +283,54 @@ public class WordCloud extends JFrame {
             .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
-                                .addComponent(loadBlacklistButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(loadWhitelistButton)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
-                        .addComponent(LoadWordCountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(loadWordCountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(GenerateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(generateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, wordCloudSettingsPanelLayout.createSequentialGroup()
+                        .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, wordCloudSettingsPanelLayout.createSequentialGroup()
+                                .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
+                                        .addComponent(blacklistScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(whitelistScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(wordCountScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, wordCloudSettingsPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(loadBlacklistButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)
+                                .addComponent(loadWhitelistButton)))
+                        .addContainerGap())))
         );
 
-        wordCloudSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {GenerateButton, LoadWordCountButton, loadBlacklistButton, loadWhitelistButton});
+        wordCloudSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {generateButton, loadBlacklistButton, loadWhitelistButton, loadWordCountButton});
 
         wordCloudSettingsPanelLayout.setVerticalGroup(
             wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(wordCloudSettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(blacklistScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                    .addComponent(whitelistScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loadBlacklistButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(loadWhitelistButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(wordCountScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(wordCloudSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LoadWordCountButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GenerateButton))
-                .addContainerGap())
+                    .addComponent(loadWordCountButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(generateButton))
+                .addContainerGap(395, Short.MAX_VALUE))
         );
 
-        wordCloudSettingsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {GenerateButton, LoadWordCountButton, loadBlacklistButton, loadWhitelistButton});
+        wordCloudSettingsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {generateButton, loadBlacklistButton, loadWhitelistButton, loadWordCountButton});
 
-        jTabbedPane1.addTab("Content", wordCloudSettingsPanel);
-
-        outlineSettingsPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        settingsTabbedPane.addTab("Content", wordCloudSettingsPanel);
 
         loadOutlineButton.setText("Load");
         loadOutlineButton.addActionListener(new java.awt.event.ActionListener() {
@@ -333,82 +339,82 @@ public class WordCloud extends JFrame {
             }
         });
 
-        ColorPickerPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        ColorPickerPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        colorPickerPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        colorPickerPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ColorPickerPanelMouseClicked(evt);
+                colorPickerPanelMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout ColorPickerPanelLayout = new javax.swing.GroupLayout(ColorPickerPanel);
-        ColorPickerPanel.setLayout(ColorPickerPanelLayout);
-        ColorPickerPanelLayout.setHorizontalGroup(
-            ColorPickerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout colorPickerPanelLayout = new javax.swing.GroupLayout(colorPickerPanel);
+        colorPickerPanel.setLayout(colorPickerPanelLayout);
+        colorPickerPanelLayout.setHorizontalGroup(
+            colorPickerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 59, Short.MAX_VALUE)
         );
-        ColorPickerPanelLayout.setVerticalGroup(
-            ColorPickerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        colorPickerPanelLayout.setVerticalGroup(
+            colorPickerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 23, Short.MAX_VALUE)
         );
 
-        ToleranceSlider.setMaximum(255);
-        ToleranceSlider.setValue(0);
-        ToleranceSlider.setPreferredSize(new java.awt.Dimension(35, 16));
+        toleranceSlider.setMaximum(255);
+        toleranceSlider.setValue(0);
+        toleranceSlider.setPreferredSize(new java.awt.Dimension(35, 16));
 
-        SaveButton.setText("Save");
-        SaveButton.addActionListener(new java.awt.event.ActionListener() {
+        saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveButtonActionPerformed(evt);
+                saveButtonActionPerformed(evt);
             }
         });
 
-        VerticalScaleTF.setText("1");
-        VerticalScaleTF.setMinimumSize(new java.awt.Dimension(50, 25));
-        VerticalScaleTF.setPreferredSize(new java.awt.Dimension(50, 25));
-        VerticalScaleTF.addActionListener(new java.awt.event.ActionListener() {
+        verticalScaleTF.setText("1");
+        verticalScaleTF.setMinimumSize(new java.awt.Dimension(50, 25));
+        verticalScaleTF.setPreferredSize(new java.awt.Dimension(50, 25));
+        verticalScaleTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerticalScaleTFActionPerformed(evt);
+                verticalScaleTFActionPerformed(evt);
             }
         });
 
-        VerticalOffsetTF.setText("0");
-        VerticalOffsetTF.setMinimumSize(new java.awt.Dimension(30, 25));
-        VerticalOffsetTF.setPreferredSize(new java.awt.Dimension(50, 25));
-        VerticalOffsetTF.addActionListener(new java.awt.event.ActionListener() {
+        verticalOffsetTF.setText("0");
+        verticalOffsetTF.setMinimumSize(new java.awt.Dimension(30, 25));
+        verticalOffsetTF.setPreferredSize(new java.awt.Dimension(50, 25));
+        verticalOffsetTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerticalOffsetTFActionPerformed(evt);
+                verticalOffsetTFActionPerformed(evt);
             }
         });
 
-        HorizontalScaleTF.setText("1");
-        HorizontalScaleTF.setMinimumSize(new java.awt.Dimension(30, 25));
-        HorizontalScaleTF.setPreferredSize(new java.awt.Dimension(50, 25));
-        HorizontalScaleTF.addActionListener(new java.awt.event.ActionListener() {
+        horizontalScaleTF.setText("1");
+        horizontalScaleTF.setMinimumSize(new java.awt.Dimension(30, 25));
+        horizontalScaleTF.setPreferredSize(new java.awt.Dimension(50, 25));
+        horizontalScaleTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HorizontalScaleTFActionPerformed(evt);
+                horizontalScaleTFActionPerformed(evt);
             }
         });
 
-        HorizontalOffsetTF.setText("0");
-        HorizontalOffsetTF.setMinimumSize(new java.awt.Dimension(30, 25));
-        HorizontalOffsetTF.setPreferredSize(new java.awt.Dimension(50, 25));
-        HorizontalOffsetTF.addActionListener(new java.awt.event.ActionListener() {
+        horizontalOffsetTF.setText("0");
+        horizontalOffsetTF.setMinimumSize(new java.awt.Dimension(30, 25));
+        horizontalOffsetTF.setPreferredSize(new java.awt.Dimension(50, 25));
+        horizontalOffsetTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HorizontalOffsetTFActionPerformed(evt);
+                horizontalOffsetTFActionPerformed(evt);
             }
         });
 
-        ColorPickerLabel.setText("Color Picker");
+        colorPickerLabel.setText("Color Picker");
 
-        HorizontalScaleLabel.setText("Horizontal Scale");
+        horizontalScaleLabel.setText("Horizontal Scale");
 
-        VerticalOffsetLabel.setText("Vertical Offset");
+        verticalOffsetLabel.setText("Vertical Offset");
 
-        VerticalScaleLabel.setText("Vertical Scale");
+        verticalScaleLabel.setText("Vertical Scale");
 
-        HorizontalOffsetLabel.setText("Horizontal Offset");
+        horizontalOffsetLabel.setText("Horizontal Offset");
 
-        ToleranceLabel.setText("Tolerance");
+        toleranceLabel.setText("Tolerance");
 
         javax.swing.GroupLayout outlineSettingsPanelLayout = new javax.swing.GroupLayout(outlineSettingsPanel);
         outlineSettingsPanel.setLayout(outlineSettingsPanelLayout);
@@ -419,82 +425,80 @@ public class WordCloud extends JFrame {
                 .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(outlineSettingsPanelLayout.createSequentialGroup()
                         .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ToleranceSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(HorizontalOffsetTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(toleranceSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(horizontalOffsetTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(HorizontalOffsetLabel)
-                            .addComponent(ToleranceLabel)))
+                            .addComponent(horizontalOffsetLabel)
+                            .addComponent(toleranceLabel)))
                     .addGroup(outlineSettingsPanelLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(ColorPickerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(colorPickerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ColorPickerLabel))
+                        .addComponent(colorPickerLabel))
                     .addGroup(outlineSettingsPanelLayout.createSequentialGroup()
                         .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(VerticalOffsetTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(HorizontalScaleTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(VerticalScaleTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(verticalOffsetTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(horizontalScaleTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(verticalScaleTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(VerticalOffsetLabel)
-                            .addComponent(VerticalScaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(HorizontalScaleLabel)))
+                            .addComponent(verticalOffsetLabel)
+                            .addComponent(verticalScaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(horizontalScaleLabel)))
                     .addGroup(outlineSettingsPanelLayout.createSequentialGroup()
                         .addComponent(loadOutlineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        outlineSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ColorPickerLabel, HorizontalOffsetLabel, HorizontalScaleLabel, ToleranceLabel, VerticalOffsetLabel, VerticalScaleLabel});
+        outlineSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {colorPickerLabel, horizontalOffsetLabel, horizontalScaleLabel, toleranceLabel, verticalOffsetLabel, verticalScaleLabel});
 
-        outlineSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {ColorPickerPanel, HorizontalOffsetTF, HorizontalScaleTF, ToleranceSlider, VerticalOffsetTF, VerticalScaleTF});
+        outlineSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {colorPickerPanel, horizontalOffsetTF, horizontalScaleTF, toleranceSlider, verticalOffsetTF, verticalScaleTF});
 
-        outlineSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {SaveButton, loadOutlineButton});
+        outlineSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {loadOutlineButton, saveButton});
 
         outlineSettingsPanelLayout.setVerticalGroup(
             outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(outlineSettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ColorPickerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ColorPickerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(colorPickerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colorPickerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ToleranceSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ToleranceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(toleranceSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(toleranceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(HorizontalOffsetTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(HorizontalOffsetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(horizontalOffsetTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(horizontalOffsetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(HorizontalScaleTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(HorizontalScaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(horizontalScaleTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(horizontalScaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(VerticalOffsetTF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(VerticalOffsetLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(verticalOffsetTF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(verticalOffsetLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(VerticalScaleTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(VerticalScaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(verticalScaleTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(verticalScaleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(outlineSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loadOutlineButton)
-                    .addComponent(SaveButton))
+                    .addComponent(saveButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        outlineSettingsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {ColorPickerLabel, ColorPickerPanel, HorizontalOffsetLabel, HorizontalOffsetTF, HorizontalScaleLabel, HorizontalScaleTF, ToleranceLabel, ToleranceSlider, VerticalOffsetLabel, VerticalOffsetTF, VerticalScaleLabel, VerticalScaleTF});
+        outlineSettingsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {colorPickerLabel, colorPickerPanel, horizontalOffsetLabel, horizontalOffsetTF, horizontalScaleLabel, horizontalScaleTF, toleranceLabel, toleranceSlider, verticalOffsetLabel, verticalOffsetTF, verticalScaleLabel, verticalScaleTF});
 
-        jTabbedPane1.addTab("Outline", outlineSettingsPanel);
+        settingsTabbedPane.addTab("Outline", outlineSettingsPanel);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jScrollPane1.setToolTipText("");
+        fontListScrollPane.setToolTipText("");
 
         fontList.setFont(new java.awt.Font("Dialog", 1, 9)); // NOI18N
         fontList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -503,127 +507,140 @@ public class WordCloud extends JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         fontList.setRequestFocusEnabled(false);
-        jScrollPane1.setViewportView(fontList);
+        fontListScrollPane.setViewportView(fontList);
 
-        FontScaleSlider.setAutoscrolls(true);
-        FontScaleSlider.setMinimumSize(new java.awt.Dimension(25, 25));
-        FontScaleSlider.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                FontScaleSliderStateChanged(evt);
-            }
-        });
+        fontScaleSlider.setAutoscrolls(true);
+        fontScaleSlider.setMinimumSize(new java.awt.Dimension(25, 25));
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("Scale Factor");
+        scaleFactorLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        scaleFactorLabel.setText("Scale Factor");
 
-        FontSizeTF.setText("0");
-        FontSizeTF.setMinimumSize(new java.awt.Dimension(25, 25));
-        FontSizeTF.setPreferredSize(new java.awt.Dimension(35, 24));
+        fontSizeTF.setText("0");
+        fontSizeTF.setMinimumSize(new java.awt.Dimension(25, 25));
+        fontSizeTF.setPreferredSize(new java.awt.Dimension(35, 24));
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Font Size");
+        fontSizeLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        fontSizeLabel.setText("Font Size");
 
-        IterationsPerWordTF.setText("0");
-        IterationsPerWordTF.setMinimumSize(new java.awt.Dimension(25, 25));
+        iterationsPerWordTF.setText("0");
+        iterationsPerWordTF.setMinimumSize(new java.awt.Dimension(25, 25));
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Iterations per Word");
+        iterationsPerWordLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        iterationsPerWordLabel.setText("Iterations per Word");
 
-        IterationsTF.setText("0");
-        IterationsTF.setMinimumSize(new java.awt.Dimension(25, 25));
+        iterationsTF.setText("0");
+        iterationsTF.setMinimumSize(new java.awt.Dimension(25, 25));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Iterations");
+        iterationsLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        iterationsLabel.setText("Iterations");
 
-        MaxWordsTF.setText("0");
-        MaxWordsTF.setMinimumSize(new java.awt.Dimension(25, 25));
+        maxWordsTF.setText("0");
+        maxWordsTF.setMinimumSize(new java.awt.Dimension(25, 25));
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("Max Words");
+        maxWordsLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        maxWordsLabel.setText("Max Words");
 
         minimumFontSizeTF.setText("0");
 
         minimumFontSizeLabel.setText("Min Font Size");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        stringPaddingTF.setText("0");
+
+        stringPaddingLabel.setText("String Padding");
+
+        javax.swing.GroupLayout imageSettingsPanelLayout = new javax.swing.GroupLayout(imageSettingsPanel);
+        imageSettingsPanel.setLayout(imageSettingsPanelLayout);
+        imageSettingsPanelLayout.setHorizontalGroup(
+            imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imageSettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(IterationsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(FontScaleSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(FontSizeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(IterationsPerWordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(5, 5, 5)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(minimumFontSizeTF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(MaxWordsTF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fontListScrollPane)
+                    .addGroup(imageSettingsPanelLayout.createSequentialGroup()
+                        .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(imageSettingsPanelLayout.createSequentialGroup()
+                                .addComponent(iterationsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(minimumFontSizeLabel)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(iterationsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(imageSettingsPanelLayout.createSequentialGroup()
+                                    .addComponent(fontScaleSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(scaleFactorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(imageSettingsPanelLayout.createSequentialGroup()
+                                    .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(fontSizeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(iterationsPerWordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(imageSettingsPanelLayout.createSequentialGroup()
+                                            .addGap(5, 5, 5)
+                                            .addComponent(iterationsPerWordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(imageSettingsPanelLayout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(fontSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(imageSettingsPanelLayout.createSequentialGroup()
+                                .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(stringPaddingTF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(minimumFontSizeTF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(maxWordsTF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
+                                .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(imageSettingsPanelLayout.createSequentialGroup()
+                                        .addGap(5, 5, 5)
+                                        .addComponent(maxWordsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(imageSettingsPanelLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(stringPaddingLabel)
+                                            .addComponent(minimumFontSizeLabel))))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, minimumFontSizeLabel});
+        imageSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {fontSizeLabel, iterationsLabel, iterationsPerWordLabel, maxWordsLabel, minimumFontSizeLabel, stringPaddingLabel});
 
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        imageSettingsPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {fontSizeTF, iterationsPerWordTF, iterationsTF, maxWordsTF, minimumFontSizeTF, stringPaddingTF});
+
+        imageSettingsPanelLayout.setVerticalGroup(
+            imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(imageSettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fontListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FontScaleSlider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(fontScaleSlider, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scaleFactorLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(FontSizeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fontSizeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fontSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(IterationsPerWordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(iterationsPerWordTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iterationsPerWordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(IterationsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(iterationsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iterationsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MaxWordsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(maxWordsTF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(maxWordsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(minimumFontSizeTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(minimumFontSizeLabel))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(imageSettingsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stringPaddingTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stringPaddingLabel))
+                .addContainerGap(373, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel3, minimumFontSizeLabel});
+        imageSettingsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {fontSizeLabel, iterationsLabel, iterationsPerWordLabel, maxWordsLabel, minimumFontSizeLabel, stringPaddingLabel});
 
-        jTabbedPane1.addTab("Image", jPanel1);
+        imageSettingsPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {fontSizeTF, iterationsPerWordTF, iterationsTF, maxWordsTF, minimumFontSizeTF, stringPaddingTF});
+
+        settingsTabbedPane.addTab("Image", imageSettingsPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -632,8 +649,8 @@ public class WordCloud extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(wordCloudProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(settingsTabbedPane))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(wordCloudMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -645,20 +662,19 @@ public class WordCloud extends JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(wordCloudMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(wordCloudProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 121, Short.MAX_VALUE)))
+                        .addComponent(settingsTabbedPane)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ColorPickerPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ColorPickerPanelMouseClicked
-        outlineTargetColor = JColorChooser.showDialog(ColorPickerPanel, "Choose Color", Color.white);
-        ColorPickerPanel.setBackground(outlineTargetColor);
-    }//GEN-LAST:event_ColorPickerPanelMouseClicked
+    private void colorPickerPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorPickerPanelMouseClicked
+        outlineTargetColor = JColorChooser.showDialog(colorPickerPanel, "Choose Color", Color.white);
+        colorPickerPanel.setBackground(outlineTargetColor);
+    }//GEN-LAST:event_colorPickerPanelMouseClicked
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         wordCloudMain.repaint();
@@ -670,7 +686,7 @@ public class WordCloud extends JFrame {
             Shape outline;
             try {
                 outline = WordCloudPanel.getShapeFromFile(fc.getSelectedFile().getAbsolutePath(), 
-                    ColorPickerPanel.getBackground(), ToleranceSlider.getValue());
+                    colorPickerPanel.getBackground(), toleranceSlider.getValue());
             } catch(IOException e) {
                 outline = null;
             }
@@ -686,26 +702,33 @@ public class WordCloud extends JFrame {
         }
     }//GEN-LAST:event_loadOutlineButtonActionPerformed
 
-    private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         fc.setFileFilter(new FileNameExtensionFilter("Image Files (*.jpg, *.png, *.gif, *.jpeg)", "jpg", "png", "gif", "jpeg"));
         if(fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File f = fc.getSelectedFile().getAbsoluteFile();
-            wordCloudMain.saveImage(f);
+            try {
+                wordCloudMain.saveImage(f);
+            } catch(IOException ex) {
+                String message = ex.getClass().getName() + "\n" + ex.getMessage();
+                JOptionPane.showMessageDialog(wordCountScrollPanel,
+                    message,
+                    "An Error Occurred.",
+                    JOptionPane.INFORMATION_MESSAGE);
+                Logger.getLogger(WordCloud.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    }//GEN-LAST:event_SaveButtonActionPerformed
+    }//GEN-LAST:event_saveButtonActionPerformed
 
-    private void FontScaleSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_FontScaleSliderStateChanged
-        wordCloudMain.setFontScaleFactor(0.5 + ((double)FontScaleSlider.getValue() / 200));
-    }//GEN-LAST:event_FontScaleSliderStateChanged
-
-    private void GenerateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerateButtonActionPerformed
-        wordCloudMain.setMaxWords(Integer.parseInt(MaxWordsTF.getText()));
-        wordCloudMain.setMaxIterations(Integer.parseInt(IterationsTF.getText()));
-        wordCloudMain.setMaxIterationsPerWord(Integer.parseInt(IterationsPerWordTF.getText()));
-        wordCloudMain.setFontSize(Integer.parseInt(FontSizeTF.getText()));
+    private void generateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateButtonActionPerformed
+        wordCloudMain.setMaxWords(Integer.parseInt(maxWordsTF.getText()));
+        wordCloudMain.setMaxIterations(Integer.parseInt(iterationsTF.getText()));
+        wordCloudMain.setMaxIterationsPerWord(Integer.parseInt(iterationsPerWordTF.getText()));
+        wordCloudMain.setFontSize(Integer.parseInt(fontSizeTF.getText()));
         wordCloudMain.setFonts(fontList.getSelectedValuesList());
         wordCloudMain.setMinimumFontSize(Integer.parseInt(minimumFontSizeTF.getText()));
-
+        wordCloudMain.setFontScaleFactor(0.5 + ((double)fontScaleSlider.getValue() / 200));
+        wordCloudMain.setStringPadding(Integer.parseInt(stringPaddingTF.getText()));
+        
         if(wordCounts != null) {
             wordCloudMain.setWordCounts(wordCounts);
 
@@ -716,17 +739,17 @@ public class WordCloud extends JFrame {
                 @Override
                 public void run() {
                     wordCloudMain.generateWordCloud();
-                    GenerateButton.setEnabled(true);
+                    generateButton.setEnabled(true);
                 }
             });
 
             thread.start();
 
-            GenerateButton.setEnabled(false);
+            generateButton.setEnabled(false);
         }
-    }//GEN-LAST:event_GenerateButtonActionPerformed
+    }//GEN-LAST:event_generateButtonActionPerformed
 
-    private void LoadWordCountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadWordCountButtonActionPerformed
+    private void loadWordCountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadWordCountButtonActionPerformed
         fc.setFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
         if(fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
@@ -734,37 +757,37 @@ public class WordCloud extends JFrame {
                 updateTable();
             } catch (IOException | ParseException ex) {
                 String message = ex.getClass().getName() + "\n" + ex.getMessage();
-                JOptionPane.showMessageDialog(jScrollPane2,
+                JOptionPane.showMessageDialog(wordCountScrollPanel,
                     message,
                     "An Error Occurred.",
                     JOptionPane.INFORMATION_MESSAGE);
                 Logger.getLogger(WordCloud.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_LoadWordCountButtonActionPerformed
+    }//GEN-LAST:event_loadWordCountButtonActionPerformed
 
-    private void HorizontalOffsetTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorizontalOffsetTFActionPerformed
+    private void horizontalOffsetTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horizontalOffsetTFActionPerformed
         drawPreviewImage();
-    }//GEN-LAST:event_HorizontalOffsetTFActionPerformed
+    }//GEN-LAST:event_horizontalOffsetTFActionPerformed
 
-    private void HorizontalScaleTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HorizontalScaleTFActionPerformed
+    private void horizontalScaleTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horizontalScaleTFActionPerformed
         drawPreviewImage();
-    }//GEN-LAST:event_HorizontalScaleTFActionPerformed
+    }//GEN-LAST:event_horizontalScaleTFActionPerformed
 
-    private void VerticalOffsetTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerticalOffsetTFActionPerformed
+    private void verticalOffsetTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verticalOffsetTFActionPerformed
         drawPreviewImage();
-    }//GEN-LAST:event_VerticalOffsetTFActionPerformed
+    }//GEN-LAST:event_verticalOffsetTFActionPerformed
 
-    private void VerticalScaleTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerticalScaleTFActionPerformed
+    private void verticalScaleTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verticalScaleTFActionPerformed
         drawPreviewImage();
-    }//GEN-LAST:event_VerticalScaleTFActionPerformed
+    }//GEN-LAST:event_verticalScaleTFActionPerformed
 
-    private void jProgressBar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jProgressBar1PropertyChange
+    private void wordCloudProgressBarPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_wordCloudProgressBarPropertyChange
         if(evt.getPropertyName().equals("progress")) {
             int progress = (Integer)evt.getNewValue();
-            jProgressBar1.setValue(progress);
+            wordCloudProgressBar.setValue(progress);
         }
-    }//GEN-LAST:event_jProgressBar1PropertyChange
+    }//GEN-LAST:event_wordCloudProgressBarPropertyChange
 
     private void loadBlacklistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBlacklistButtonActionPerformed
         fc.setFileFilter(new FileNameExtensionFilter("Text Files", "txt"));
@@ -779,7 +802,7 @@ public class WordCloud extends JFrame {
                 blacklistList.setListData(listData);
             } catch (IOException ex) {
                 String message = ex.getClass().getName() + "\n" + ex.getMessage();
-                JOptionPane.showMessageDialog(jScrollPane2,
+                JOptionPane.showMessageDialog(wordCountScrollPanel,
                     message,
                     "An Error Occurred.",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -801,7 +824,7 @@ public class WordCloud extends JFrame {
                 whitelistList.setListData(listData);
             } catch (IOException ex) {
                 String message = ex.getClass().getName() + "\n" + ex.getMessage();
-                JOptionPane.showMessageDialog(jScrollPane2,
+                JOptionPane.showMessageDialog(wordCountScrollPanel,
                     message,
                     "An Error Occurred.",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -849,49 +872,51 @@ public class WordCloud extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel ColorPickerLabel;
-    private javax.swing.JPanel ColorPickerPanel;
-    private javax.swing.JSlider FontScaleSlider;
-    private com.kennyloggins.clarence.NumericTextField FontSizeTF;
-    private javax.swing.JButton GenerateButton;
-    private javax.swing.JLabel HorizontalOffsetLabel;
-    private com.kennyloggins.clarence.NumericTextField HorizontalOffsetTF;
-    private javax.swing.JLabel HorizontalScaleLabel;
-    private com.kennyloggins.clarence.NumericTextField HorizontalScaleTF;
-    private com.kennyloggins.clarence.NumericTextField IterationsPerWordTF;
-    private com.kennyloggins.clarence.NumericTextField IterationsTF;
-    private javax.swing.JButton LoadWordCountButton;
-    private com.kennyloggins.clarence.NumericTextField MaxWordsTF;
-    private javax.swing.JButton SaveButton;
-    private javax.swing.JLabel ToleranceLabel;
-    private javax.swing.JSlider ToleranceSlider;
-    private javax.swing.JLabel VerticalOffsetLabel;
-    private com.kennyloggins.clarence.NumericTextField VerticalOffsetTF;
-    private javax.swing.JLabel VerticalScaleLabel;
-    private com.kennyloggins.clarence.NumericTextField VerticalScaleTF;
     private javax.swing.JList<String> blacklistList;
+    private javax.swing.JScrollPane blacklistScrollPane;
+    private javax.swing.JLabel colorPickerLabel;
+    private javax.swing.JPanel colorPickerPanel;
     private javax.swing.JList<String> fontList;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JScrollPane fontListScrollPane;
+    private javax.swing.JSlider fontScaleSlider;
+    private javax.swing.JLabel fontSizeLabel;
+    private com.kennyloggins.clarence.NumericTextField fontSizeTF;
+    private javax.swing.JButton generateButton;
+    private javax.swing.JLabel horizontalOffsetLabel;
+    private com.kennyloggins.clarence.NumericTextField horizontalOffsetTF;
+    private javax.swing.JLabel horizontalScaleLabel;
+    private com.kennyloggins.clarence.NumericTextField horizontalScaleTF;
+    private javax.swing.JPanel imageSettingsPanel;
+    private javax.swing.JLabel iterationsLabel;
+    private javax.swing.JLabel iterationsPerWordLabel;
+    private com.kennyloggins.clarence.NumericTextField iterationsPerWordTF;
+    private com.kennyloggins.clarence.NumericTextField iterationsTF;
     private javax.swing.JButton loadBlacklistButton;
     private javax.swing.JButton loadOutlineButton;
     private javax.swing.JButton loadWhitelistButton;
+    private javax.swing.JButton loadWordCountButton;
+    private javax.swing.JLabel maxWordsLabel;
+    private com.kennyloggins.clarence.NumericTextField maxWordsTF;
     private javax.swing.JLabel minimumFontSizeLabel;
     private com.kennyloggins.clarence.NumericTextField minimumFontSizeTF;
     private javax.swing.JPanel outlineSettingsPanel;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JLabel scaleFactorLabel;
+    private javax.swing.JTabbedPane settingsTabbedPane;
+    private javax.swing.JLabel stringPaddingLabel;
+    private com.kennyloggins.clarence.NumericTextField stringPaddingTF;
+    private javax.swing.JLabel toleranceLabel;
+    private javax.swing.JSlider toleranceSlider;
+    private javax.swing.JLabel verticalOffsetLabel;
+    private com.kennyloggins.clarence.NumericTextField verticalOffsetTF;
+    private javax.swing.JLabel verticalScaleLabel;
+    private com.kennyloggins.clarence.NumericTextField verticalScaleTF;
     private javax.swing.JList<String> whitelistList;
+    private javax.swing.JScrollPane whitelistScrollPane;
     private com.kennyloggins.clarence.WordCloudPanel wordCloudMain;
+    private javax.swing.JProgressBar wordCloudProgressBar;
     private javax.swing.JPanel wordCloudSettingsPanel;
+    private javax.swing.JScrollPane wordCountScrollPanel;
     private javax.swing.JTable wordCountTable;
     // End of variables declaration//GEN-END:variables
 }

@@ -49,9 +49,20 @@ public class HitBox {
      * @return true if the HBoxes intersect, given the offsets.
      */
     public boolean intersects(HitBox target, double xOffSet, double yOffSet)  {
+        return this.intersects(target, xOffSet, yOffSet, 0);
+    }
+    /**
+     * Checks for intersection between two HitBox objects.
+     * @param target - the HitBox to check against.
+     * @param xOffSet - the horizontal distance to offset the target hitbox.
+     * @param yOffSet - the vertical distance to offset the target hitbox.
+     * @param padding - the minimum allowed distance between HitBoxes before they're considered intersecting.
+     * @return true if the HBoxes intersect, given the offsets.
+     */
+    public boolean intersects(HitBox target, double xOffSet, double yOffSet, double padding)  {
         //Check the actual geometry for an intersection
-        Rectangle2D bounds = new Rectangle2D.Double(x, y, w, h);
-        if(bounds.intersects(target.x + xOffSet, target.y + yOffSet, target.w, target.h)) {
+        Rectangle2D bounds = new Rectangle2D.Double(x - padding/2, y - padding/2, w + padding, h + padding);
+        if(bounds.intersects(target.x + xOffSet - padding/2, target.y + yOffSet - padding/2, target.w + padding, target.h + padding)) {
             //A "true" intersection only occurs when two leaf nodes intersect 
             if(this.isLeaf && target.isLeaf)
                 return true;
@@ -60,18 +71,18 @@ public class HitBox {
                 for(int i = 0; i < 4; i++) {
                     if(target.hasChildren) {
                         for(int j = 0; j < 4; j++) {
-                            if(this.childNodes[i].intersects(target.childNodes[j], xOffSet, yOffSet)) 
+                            if(this.childNodes[i].intersects(target.childNodes[j], xOffSet, yOffSet, padding)) 
                                 return true;
                         }
                     } else if(target.isLeaf) {
-                        if(this.childNodes[i].intersects(target, xOffSet, yOffSet))
+                        if(this.childNodes[i].intersects(target, xOffSet, yOffSet, padding))
                             return true;
                     }
                 }
             } else if(this.isLeaf) {
                 if(target.hasChildren) {
                     for(int j = 0; j < 4; j++) {
-                        if(this.intersects(target.childNodes[j], xOffSet, yOffSet))
+                        if(this.intersects(target.childNodes[j], xOffSet, yOffSet, padding))
                             return true;
                     }
                 }
