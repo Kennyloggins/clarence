@@ -10,6 +10,8 @@ public class HitBox {
     private boolean hasChildren;
     private HitBox[] childNodes;
     
+    private static final int MINIMUM_SIDE_LENGTH = 1; //Possibly allow this to be controlled by the user
+    
     HitBox(Shape outline) {
         this(outline, outline.getBounds2D().getX(), outline.getBounds2D().getY(), 
                 outline.getBounds2D().getWidth(), outline.getBounds2D().getHeight());
@@ -23,15 +25,15 @@ public class HitBox {
         
         childNodes = new HitBox[4];
         
-        //Limit node creation to minimum of 1 pixels
-        if(Math.max(w, h) < 2 || outline.contains(x, y, w, h)) {
+        //Do not create new nodes if both sides are less than the minmum length
+        if(Math.max(w, h) < MINIMUM_SIDE_LENGTH || outline.contains(x, y, w, h)) {
             isLeaf = true;
             return;
         }
 
         //Create new nodes if the outline intersects with the bounds
         if(outline.intersects(x, y, w, h)) {
-            this.hasChildren = true;
+            hasChildren = true;
             double newW = w / 2;
             double newH = h / 2;
             childNodes[0] = new HitBox(outline, x, y, newW, newH);
@@ -51,6 +53,7 @@ public class HitBox {
     public boolean intersects(HitBox target, double xOffSet, double yOffSet)  {
         return this.intersects(target, xOffSet, yOffSet, 0);
     }
+    
     /**
      * Checks for intersection between two HitBox objects.
      * @param target - the HitBox to check against.
@@ -74,17 +77,13 @@ public class HitBox {
                             if(this.childNodes[i].intersects(target.childNodes[j], xOffSet, yOffSet, padding)) 
                                 return true;
                         }
-                    } else if(target.isLeaf) {
-                        if(this.childNodes[i].intersects(target, xOffSet, yOffSet, padding))
-                            return true;
-                    }
+                    } else if(target.isLeaf && this.childNodes[i].intersects(target, xOffSet, yOffSet, padding))
+                        return true;
                 }
-            } else if(this.isLeaf) {
-                if(target.hasChildren) {
-                    for(int j = 0; j < 4; j++) {
-                        if(this.intersects(target.childNodes[j], xOffSet, yOffSet, padding))
-                            return true;
-                    }
+            } else if(this.isLeaf && target.hasChildren) {
+                for(int j = 0; j < 4; j++) {
+                    if(this.intersects(target.childNodes[j], xOffSet, yOffSet, padding))
+                        return true;
                 }
             }
         }
